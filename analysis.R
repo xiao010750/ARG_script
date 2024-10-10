@@ -2,7 +2,7 @@
 physeq_data <- physeq_arg  %>% 
   psmelt()%>%
   group_by(Type,Location,Sample) %>%
-  summarise(total_count = sum(Abundance)) %>% #会创造一个新数据框，只包含分组变量和统计值。
+  summarise(total_count = sum(Abundance)) %>% 
   ungroup()#%>% 
 #arrange(desc(total_count))
 
@@ -117,7 +117,7 @@ pp<-plot_ordination(ps_arg, ordinate(ps_arg, method = "NMDS", distance = "bray")
   scale_color_manual(values = col_Location)+
   scale_shape_manual(values = c(17,16))
 pp+theme_bw()+#stat_ellipse()
-  scale_x_continuous(expand = expand_scale(0.05))+scale_y_continuous(expand = expand_scale(0.05))+#expand_scale(0.05)表示将轴的数据范围扩展5%，这样可以留出一定空白。
+  scale_x_continuous(expand = expand_scale(0.05))+scale_y_continuous(expand = expand_scale(0.05))+
   geom_encircle(aes(group =               Location,fill=Location),expand=0,spread=0.5,s_shape=1,size=3,linetype = 1,alpha=0.2)+
   scale_fill_manual(values = col_Location)+
   theme(panel.grid.major = element_blank(),
@@ -215,13 +215,13 @@ result_nst %>% ggplot()+
   scale_y_continuous(expand = c(0,0))
 ggsave("arg_community.pdf",width = 6,height = 4)
 
-#
+#Linear regression model
 env <- read.csv("理化性质.csv")
 
 mge <-ps_mge %>% 
   psmelt() %>% 
   group_by(Location,sample_name) %>% 
-  summarise(total_count = sum(Abundance)) %>% #会创造一个新数据框，只包含分组变量和统计值。
+  summarise(total_count = sum(Abundance)) %>% 
   ungroup()
 #t.test(total_count ~ Soil_type, data = mge)
 
